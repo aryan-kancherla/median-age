@@ -1,16 +1,20 @@
 ---
 title: "Median Age in US Counties "
-
+execute: 
+  echo: false
+  warning: false
 ---
 
 ```{r}
+#| message: false
 library(tidycensus)
+library(tidyverse)
 ```
 
 
 
 ```{r}
-
+#| message: false
 x <- get_decennial(geography = "county", 
                    variables = c(population = "P001001", 
                                  med_age_male = "P013002", 
@@ -20,6 +24,16 @@ x <- get_decennial(geography = "county",
 ```
 
 ```{r}
-summary(x)
+#summary(x)
+x |>
+    ggplot(aes(med_age_male, y = med_age_female)) + 
+      geom_point() + theme_classic() + 
+        labs(
+          title = "Median ages of Males and Females in US Counties",
+          x = "Male Median Age",
+          y = "Female Median Age"
+          
+        )
+    
 ```
 
